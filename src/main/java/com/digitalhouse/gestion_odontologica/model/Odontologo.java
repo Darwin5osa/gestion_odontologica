@@ -8,7 +8,7 @@ import lombok.*;
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Odontologo {
-    private int numeroMatricula;
+    private int matricula;
     private String nombre;
     private String apellido;
 }
