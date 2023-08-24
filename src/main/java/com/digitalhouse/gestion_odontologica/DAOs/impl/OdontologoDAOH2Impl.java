@@ -1,44 +1,38 @@
 package com.digitalhouse.gestion_odontologica.DAOs.impl;
 
-import com.digitalhouse.gestion_odontologica.DAOs.IOdontologoDAO;
+import com.digitalhouse.gestion_odontologica.DAOs.IDao;
 import com.digitalhouse.gestion_odontologica.Utils.SQLQueries;
 import com.digitalhouse.gestion_odontologica.model.Odontologo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-public class OdontologoDAOH2Impl implements IOdontologoDAO {
+@Repository
+public class OdontologoDAOH2Impl implements IDao<Odontologo> {
 
-    private static Connection connection;
+    private final Connection connection;
 
-    public OdontologoDAOH2Impl() {
-        try {
-            Class.forName("org.h2.Driver");
-            String url = "jdbc:h2:tcp://localhost/~/test";
-            connection = DriverManager.getConnection(url, "sa", "");
-            log.debug("Se establecio la conexion con la base de datos H2");
-        } catch (Exception e) {
-            log.error("No se pudo establecer la conexión con la base de datos H2", e);
-        }
-    }
-
-    public void crearTablas() throws Exception {
-        Statement statement = connection.createStatement();
-        statement.execute(SQLQueries.CREATETABLES);
-        statement.close();
+    @Autowired
+    public OdontologoDAOH2Impl(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
-    public void guardar(Odontologo odontologo) throws Exception {
-        try (PreparedStatement statement = connection.prepareStatement(SQLQueries.INSERT_CUSTOM)) {
-            statement.setInt(1, odontologo.getNumeroMatricula());
+    public Odontologo guardar(Odontologo odontologo) throws Exception {
+        try (PreparedStatement statement = connection.prepareStatement(SQLQueries.INSERT_ODONTOLOGO)) {
+            statement.setInt(1, odontologo.getMatricula());
             statement.setString(2, odontologo.getNombre());
             statement.setString(3, odontologo.getApellido());
             statement.execute();
-            log.info("Odontólogo guardado en memoria: " + odontologo.getNumeroMatricula());
+            log.info("Odontólogo guardado en db H2: " + odontologo.getMatricula());
+            return odontologo;
         } catch (Exception e) {
             log.error("No se pudo persistir: " + odontologo, e);
             throw new Exception("Sucedio un error al persistir", e);
@@ -46,10 +40,20 @@ public class OdontologoDAOH2Impl implements IOdontologoDAO {
     }
 
     @Override
+    public Odontologo buscar(Integer id) throws Exception {
+        return null;
+    }
+
+    @Override
+    public void eliminar(Integer id) throws Exception {
+
+    }
+
+    @Override
     public List<Odontologo> listarTodos() throws Exception {
         List<Odontologo> odontologos = new ArrayList<>();
 
-        try (PreparedStatement statement = connection.prepareStatement(SQLQueries.LISTAR_TODOS_ODONTOLOGO)) {
+        try (PreparedStatement statement = connection.prepareStatement(SQLQueries.LISTAR_TODOS_PACIENTE)) {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
@@ -66,5 +70,10 @@ public class OdontologoDAOH2Impl implements IOdontologoDAO {
         }
 
         return odontologos;
+    }
+
+    @Override
+    public Odontologo actualizar(Odontologo odontologo) { //todo
+        return null;
     }
 }

@@ -5,6 +5,11 @@ import com.digitalhouse.gestion_odontologica.model.Odontologo;
 import java.util.List;
 
 public interface IOdontologoService {
-    boolean guardar(Odontologo odontologo);
-    List<Odontologo> listarTodos();
+    void guardar(Odontologo odontologo) throws Exception;
+
+    List<Odontologo> listarTodos() throws Exception;
+
+    void actualizar(Odontologo odontologo) throws Exception;
+
+    void eliminar(int matricula) throws Exception;
 }

@@ -8,22 +8,22 @@ import java.util.List;
 
 public class PacienteService implements IPacienteService {
     @Override
-    public boolean guardar(Odontologo odontologo) {
-        return false;
+    public void guardar(Odontologo odontologo) {
+        //todo
     }
 
     @Override
-    public boolean eliminar(int id) {
-        return false;
+    public void eliminar(int id) {
+        //todo
     }
 
     @Override
     public Paciente obtenerUnoPorId(int id) {
         return null;
-    }
+    } //todo
 
     @Override
     public List<Odontologo> listarTodos() {
         return null;
-    }
+    } //todo
 }
