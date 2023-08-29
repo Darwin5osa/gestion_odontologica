@@ -1,8 +1,8 @@
 package com.digitalhouse.gestion_odontologica.controller;
 
 import com.digitalhouse.gestion_odontologica.Service.IOdontologoService;
-import com.digitalhouse.gestion_odontologica.dto.CrearOdontologoDto;
-import com.digitalhouse.gestion_odontologica.model.Odontologo;
+import com.digitalhouse.gestion_odontologica.dto.OdontologoDto;
+import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,9 +23,12 @@ public class OdontologoController {
     }
 
     @GetMapping()
-    public List<Odontologo> getAllOdontologo() {
+    public List<OdontologoDto> getAllOdontologo() {
         try {
-            return odontologoService.listarTodos();
+            return odontologoService.listarTodos()
+                    .stream()
+                    .map(odontologo -> mapper.convertValue(odontologo, OdontologoDto.class))
+                    .toList();
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar listar todos los odontologos", exception);
             return null;
@@ -33,11 +36,11 @@ public class OdontologoController {
     }
 
     @PostMapping()
-    public void guardarOdontologo(@RequestBody CrearOdontologoDto request) {
-        log.debug("Se recibio: " + request + " para guardar");
+    public void guardarOdontologo(@RequestBody OdontologoDto odontologoDto) {
+        log.debug("Se recibio: " + odontologoDto + " para guardar");
 
         try {
-            odontologoService.guardar(mapper.convertValue(request, Odontologo.class));
+            odontologoService.guardar(mapper.convertValue(odontologoDto, Odontologo.class));
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar guardar el odontologo", exception);
         }

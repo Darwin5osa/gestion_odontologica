@@ -1,13 +1,12 @@
 package com.digitalhouse.gestion_odontologica.Service;
 
-import com.digitalhouse.gestion_odontologica.model.Odontologo;
-import com.digitalhouse.gestion_odontologica.model.Paciente;
+import com.digitalhouse.gestion_odontologica.entity.Paciente;
 
 import java.util.List;
 
 public interface IPacienteService {
-    void guardar(Odontologo odontologo) throws Exception;
+    void guardar(Paciente paciente) throws Exception;
     void eliminar(int id) throws Exception;
-    Paciente obtenerUnoPorId(int id) throws Exception;
-    List<Odontologo> listarTodos() throws Exception;
+    void actualizar(Paciente paciente) throws Exception;
+    List<Paciente> listarTodos() throws Exception;
 }

@@ -1,6 +1,6 @@
 package com.digitalhouse.gestion_odontologica.Service;
 
-import com.digitalhouse.gestion_odontologica.model.Odontologo;
+import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 
 import java.util.List;
 
