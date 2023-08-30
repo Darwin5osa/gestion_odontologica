@@ -1,14 +1,13 @@
 package com.digitalhouse.gestion_odontologica.Service.impl;
 
 import com.digitalhouse.gestion_odontologica.Service.IPacienteService;
-import com.digitalhouse.gestion_odontologica.model.Odontologo;
-import com.digitalhouse.gestion_odontologica.model.Paciente;
+import com.digitalhouse.gestion_odontologica.entity.Paciente;
 
 import java.util.List;
 
 public class PacienteService implements IPacienteService {
     @Override
-    public void guardar(Odontologo odontologo) {
+    public void guardar(Paciente paciente) {
         //todo
     }
 
@@ -18,12 +17,12 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public Paciente obtenerUnoPorId(int id) {
-        return null;
-    } //todo
+    public void actualizar(Paciente paciente) throws Exception {
+
+    }
 
     @Override
-    public List<Odontologo> listarTodos() {
+    public List<Paciente> listarTodos() {
         return null;
     } //todo
 }
