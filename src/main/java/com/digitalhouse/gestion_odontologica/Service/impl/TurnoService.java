@@ -2,9 +2,14 @@ package com.digitalhouse.gestion_odontologica.Service.impl;
 
 import com.digitalhouse.gestion_odontologica.Service.ITurnoService;
 import com.digitalhouse.gestion_odontologica.entity.Turno;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class TurnoService implements ITurnoService {
 
     @Override
