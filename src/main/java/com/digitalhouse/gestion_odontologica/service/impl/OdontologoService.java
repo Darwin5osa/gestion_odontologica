@@ -1,9 +1,10 @@
-package com.digitalhouse.gestion_odontologica.Service.impl;
+package com.digitalhouse.gestion_odontologica.service.impl;
 
-import com.digitalhouse.gestion_odontologica.Service.IOdontologoService;
+import com.digitalhouse.gestion_odontologica.service.IOdontologoService;
 import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import com.digitalhouse.gestion_odontologica.repository.OdontolgoRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,15 +13,11 @@ import java.util.List;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class OdontologoService implements IOdontologoService {
 
     private final OdontolgoRepository odontologoReository;
-    private final ObjectMapper mapper = new ObjectMapper();
-
-    @Autowired
-    public OdontologoService(OdontolgoRepository odontologoReository) {
-        this.odontologoReository = odontologoReository;
-    }
+    private final ObjectMapper mapper;
 
     public void guardar(Odontologo odontologo) {
         try {

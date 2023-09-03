@@ -1,4 +1,4 @@
-package com.digitalhouse.gestion_odontologica.Service.impl;
+package com.digitalhouse.gestion_odontologica.service.impl;
 
 //@SpringBootTest
 /*class OdontologoServiceTest {

@@ -1,6 +1,6 @@
 package com.digitalhouse.gestion_odontologica.controller;
 
-import com.digitalhouse.gestion_odontologica.Service.IPacienteService;
+import com.digitalhouse.gestion_odontologica.service.IPacienteService;
 import com.digitalhouse.gestion_odontologica.dto.InputPacienteDto;
 import com.digitalhouse.gestion_odontologica.dto.OutputPacienteDto;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
@@ -46,15 +46,29 @@ public class PacienteController {
         }
     }
 
-    @PutMapping()
-    public void actualizar(@RequestBody InputPacienteDto inputPacienteDto) {
-        log.debug("Se recibio: " + inputPacienteDto + " para guardar");
+    @PutMapping("/{id}")
+    public void actualizar(@RequestBody InputPacienteDto inputPacienteDto, @PathVariable Long id) {
+        log.debug("Se recibio: " + inputPacienteDto + " para actualizar el paciente con el id " + id);
 
         try {
-            pacienteService.actualizar(mapper.convertValue(inputPacienteDto, Paciente.class));
+            Paciente paciente = mapper.convertValue(inputPacienteDto, Paciente.class);
+            paciente.setId(id);
+            pacienteService.actualizar(paciente);
 
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar guardar el paciente", exception);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public void eliminar(@PathVariable Long id) {
+        log.debug("Se recibio la solicitud de eliminar el paciente con el id " + id);
+
+        try {
+            pacienteService.eliminar(id);
+
+        } catch (Exception exception) {
+            log.error("Se produjo un error al intentar eliminar el pacientecon el id " + id, exception);
         }
     }
 }

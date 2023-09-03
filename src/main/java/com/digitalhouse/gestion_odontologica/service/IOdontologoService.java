@@ -1,4 +1,4 @@
-package com.digitalhouse.gestion_odontologica.Service;
+package com.digitalhouse.gestion_odontologica.service;
 
 import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 

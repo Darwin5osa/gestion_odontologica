@@ -1,6 +1,6 @@
-package com.digitalhouse.gestion_odontologica.Service.impl;
+package com.digitalhouse.gestion_odontologica.service.impl;
 
-import com.digitalhouse.gestion_odontologica.Service.ITurnoService;
+import com.digitalhouse.gestion_odontologica.service.ITurnoService;
 import com.digitalhouse.gestion_odontologica.entity.Turno;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,7 +5,7 @@ import com.digitalhouse.gestion_odontologica.entity.Domicilio;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 
 public class Mapper {
-    public static Paciente map(Long id, InputPacienteDto dto) {
+    public static Paciente map(Long id, InputPacienteDto dto) { // TODO see if it is necessary
         Paciente paciente = new Paciente();
         Domicilio domicilio = new Domicilio();
 
