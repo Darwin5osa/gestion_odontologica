@@ -1,7 +1,6 @@
 package com.digitalhouse.gestion_odontologica.controller;
 
 import com.digitalhouse.gestion_odontologica.Service.IPacienteService;
-import com.digitalhouse.gestion_odontologica.dto.OdontologoDto;
 import com.digitalhouse.gestion_odontologica.dto.InputPacienteDto;
 import com.digitalhouse.gestion_odontologica.dto.OutputPacienteDto;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
@@ -31,7 +30,7 @@ public class PacienteController {
                     .toList());
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar listar todos los pacientes", exception);
-            return ResponseEntity.;
+            return ResponseEntity.internalServerError().build();
         }
     }
 

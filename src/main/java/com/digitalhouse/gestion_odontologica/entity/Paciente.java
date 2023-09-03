@@ -1,14 +1,12 @@
 package com.digitalhouse.gestion_odontologica.entity;
 
-import lombok.Data;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Set;
-import java.util.HashSet;
+import java.util.List;
 
 @Entity
 @Table(name = "PACIENTE")
@@ -33,7 +31,6 @@ public class Paciente {
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
-    @ManyToMany(mappedBy = "pacientes") // Relación muchos a muchos mapeada desde la propiedad "pacientes" en la clase relacionada
-    private Set<Turno> turnos = new HashSet<>(); // Colección de turnos asociados con este paciente
-
+    @OneToMany(mappedBy = "paciente")
+    private List<Turno> turnos = new ArrayList<>();
 }

@@ -3,6 +3,8 @@ package com.digitalhouse.gestion_odontologica.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ODONTOLOGO")
@@ -20,7 +22,6 @@ public class Odontologo {
 
     private Integer matricula;
 
-    @OneToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
-    @JoinColumn(name = "turno_id", referencedColumnName = "id")
-    private Turno turno;
+    @OneToMany(mappedBy = "odontologo")
+    private List<Turno> turnos = new ArrayList<>();
 }

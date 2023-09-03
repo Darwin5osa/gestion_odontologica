@@ -6,31 +6,33 @@ import com.digitalhouse.gestion_odontologica.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
+@Service
 public class PacienteService implements IPacienteService {
-    private final PacienteRepository repository;
+    private final PacienteRepository pacienteRepository;
 
     @Override
     public Paciente guardar(Paciente paciente) {
-        return repository.save(paciente);
+        return pacienteRepository.save(paciente);
     }
 
     @Override
     public void eliminar(Long id) {
-        repository.deleteById(id);
+        pacienteRepository.deleteById(id);
     }
 
     @Override
     public Paciente actualizar(Paciente paciente) throws Exception {
-        return repository.update(paciente);
+        return paciente; //pacienteRepository.update(paciente);
     }
 
     @Override
     public List<Paciente> listarTodos() {
-        return repository.findAll();
+        return pacienteRepository.findAll();
     }
 }
