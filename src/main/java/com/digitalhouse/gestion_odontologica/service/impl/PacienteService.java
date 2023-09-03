@@ -1,6 +1,6 @@
-package com.digitalhouse.gestion_odontologica.Service.impl;
+package com.digitalhouse.gestion_odontologica.service.impl;
 
-import com.digitalhouse.gestion_odontologica.Service.IPacienteService;
+import com.digitalhouse.gestion_odontologica.service.IPacienteService;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 import com.digitalhouse.gestion_odontologica.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;

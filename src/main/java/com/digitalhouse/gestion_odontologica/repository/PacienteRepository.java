@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente,Long> {
     /*@Modifying
-    @Query(value = "")
+    @Query(value = "") TODO finish the update to just update the nombre y appellido
     Paciente update(Paciente paciente);*/
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OdontolgoRepository extends JpaRepository<Odontologo,Long> {
+    // todo update
 }

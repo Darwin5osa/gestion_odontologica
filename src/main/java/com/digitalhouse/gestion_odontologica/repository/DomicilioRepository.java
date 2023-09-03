@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DomicilioRepository extends JpaRepository<Domicilio,Long> {
+    // todo update
 }
