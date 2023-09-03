@@ -31,6 +31,6 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public List<Paciente> listarTodos() {
-        return ;
-    } //todo
+        return repository.findAll();
+    }
 }

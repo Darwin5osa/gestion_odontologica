@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente,Long> {
     @Modifying
-    @Query(value = "update Paciente set directorTecnico.id = ?1 where id = ?2 ")
+    @Query(value = "update Paciente p SET p.nombre = :paciente.nombre, p.apellido = :paciente.apellido WHERE p.id = :paciente.id")
     Paciente update(Paciente paciente);
 }
