@@ -1,13 +1,17 @@
 package com.digitalhouse.gestion_odontologica.controller;
 
+import com.digitalhouse.gestion_odontologica.dto.ActualizarPaciente;
+import com.digitalhouse.gestion_odontologica.dto.DomicilioDto;
+import com.digitalhouse.gestion_odontologica.entity.Domicilio;
 import com.digitalhouse.gestion_odontologica.service.IPacienteService;
-import com.digitalhouse.gestion_odontologica.dto.InputPacienteDto;
-import com.digitalhouse.gestion_odontologica.dto.OutputPacienteDto;
+import com.digitalhouse.gestion_odontologica.dto.NuevoPacienteDto;
+import com.digitalhouse.gestion_odontologica.dto.PacienteResultadoDto;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Role;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,53 +26,71 @@ public class PacienteController {
     private final ObjectMapper mapper;
 
     @GetMapping()
-    public ResponseEntity<List<OutputPacienteDto>> getAll() {
+    public ResponseEntity<List<PacienteResultadoDto>> listar() {
         try {
             return ResponseEntity.ok(pacienteService.listarTodos()
                     .stream()
-                    .map(paciente -> mapper.convertValue(paciente, OutputPacienteDto.class))
+                    .map(paciente -> mapper.convertValue(paciente, PacienteResultadoDto.class))
                     .toList());
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar listar todos los pacientes", exception);
-            return ResponseEntity.internalServerError().build();
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 
     @PostMapping()
-    public void guardar(@RequestBody InputPacienteDto inputPacienteDto) {
-        log.debug("Se recibio: " + inputPacienteDto + " para guardar");
+    public ResponseEntity<PacienteResultadoDto> guardar(@RequestBody NuevoPacienteDto nuevoPacienteDto) {
+        log.debug("Se recibio: " + nuevoPacienteDto + " para guardar");
 
         try {
-            pacienteService.guardar(mapper.convertValue(inputPacienteDto, Paciente.class));
-
+            Paciente paciente = pacienteService.guardar(mapper.convertValue(nuevoPacienteDto, Paciente.class));
+            return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar guardar el paciente", exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 
     @PutMapping("/{id}")
-    public void actualizar(@RequestBody InputPacienteDto inputPacienteDto, @PathVariable Long id) {
-        log.debug("Se recibio: " + inputPacienteDto + " para actualizar el paciente con el id " + id);
+    public ResponseEntity<PacienteResultadoDto> actualizar(@RequestBody ActualizarPaciente pacienteDto, @PathVariable Long id) {
+        log.debug("Se recibio: " + pacienteDto + " para actualizar el paciente con el id " + id);
 
         try {
-            Paciente paciente = mapper.convertValue(inputPacienteDto, Paciente.class);
+            Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
             paciente.setId(id);
-            pacienteService.actualizar(paciente);
-
+            paciente = pacienteService.actualizar(paciente);
+            return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar guardar el paciente", exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
+        }
+    }
+
+    @PutMapping("/{id}/domicilio")
+    public ResponseEntity<PacienteResultadoDto> actualizarDomicilio(@RequestBody DomicilioDto DomicilioDto,
+                                    @PathVariable Long pacienteId) {
+        log.debug("Se recibio: " + DomicilioDto + " para actualizar el domicilio del paciente con el id " + pacienteId);
+
+        try {
+            Domicilio domicilio = mapper.convertValue(DomicilioDto, Domicilio.class);
+            Paciente paciente = pacienteService.actualizar(pacienteId, domicilio);
+            return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
+        } catch (Exception exception) {
+            log.error("Se produjo un error al intentar actualizar el domicilio del paciente con el id " + pacienteId, exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public ResponseEntity<String> eliminar(@PathVariable Long id) {
         log.debug("Se recibio la solicitud de eliminar el paciente con el id " + id);
 
         try {
             pacienteService.eliminar(id);
-
+            return ResponseEntity.noContent().build();
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar eliminar el pacientecon el id " + id, exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 }

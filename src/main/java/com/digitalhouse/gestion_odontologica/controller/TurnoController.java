@@ -20,4 +20,10 @@ public class TurnoController {
     // TODO: se tiene que poder permitir asignar
     //  a un paciente un turno con un odontólogo
     //  a una determinada fecha y hora.
+    // crear
+    // asignar odontologo
+    // asignar pacientes
+    // reagendar fecha y hora
+    // eliminar
+    // listar
 }

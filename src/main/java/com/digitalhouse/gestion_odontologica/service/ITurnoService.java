@@ -12,4 +12,11 @@ public interface ITurnoService {
     void actualizar(Turno turno) throws Exception;
 
     void eliminar(int dni) throws Exception;
+
+    // crear
+    // asignar odontologo
+    // asignar pacientes
+    // reagendar fecha y hora
+    // eliminar
+    // listar
 }

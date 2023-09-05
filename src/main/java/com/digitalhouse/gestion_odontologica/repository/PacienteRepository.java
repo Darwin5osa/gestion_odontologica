@@ -2,11 +2,15 @@ package com.digitalhouse.gestion_odontologica.repository;
 
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente,Long> {
-    /*@Modifying
-    @Query(value = "") TODO finish the update to just update the nombre y appellido
-    Paciente update(Paciente paciente);*/
+    @Modifying
+    @Query(value = "UPDATE Paciente p" +
+            "SET p.nombre = :nombre, p.apellido = :apellido" +
+            "WHERE p.id = :id")
+    Paciente update(String nombre, String apellido, Long id);
 }
