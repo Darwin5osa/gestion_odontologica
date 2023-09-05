@@ -66,6 +66,21 @@ public class PacienteController {
         }
     }
 
+    @PutMapping("/{id}/domicilio")
+    public ResponseEntity<PacienteResultadoDto> actualizarDomicilio(@RequestBody DomicilioDto DomicilioDto,
+                                    @PathVariable Long pacienteId) {
+        log.debug("Se recibio: " + DomicilioDto + " para actualizar el domicilio del paciente con el id " + pacienteId);
+
+        try {
+            Domicilio domicilio = mapper.convertValue(DomicilioDto, Domicilio.class);
+            Paciente paciente = pacienteService.actualizar(pacienteId, domicilio);
+            return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
+        } catch (Exception exception) {
+            log.error("Se produjo un error al intentar actualizar el domicilio del paciente con el id " + pacienteId, exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
         log.debug("Se recibio la solicitud de eliminar el paciente con el id " + id);
