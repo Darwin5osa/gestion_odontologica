@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,61 +18,61 @@ import java.util.List;
 @RequestMapping("/odontologo")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Slf4j
-// todo todos entity result
 public class OdontologoController {
     private final IOdontologoService odontologoService;
     private final ObjectMapper mapper;
 
     @GetMapping()
-    public List<OdontologoResultadoDto> listarOdontologo() {
+    public ResponseEntity<List<OdontologoResultadoDto>> listar() {
         try {
-            return odontologoService.listarTodos()
+            return ResponseEntity.ok(odontologoService.listarTodos()
                     .stream()
                     .map(odontologo -> mapper.convertValue(odontologo, OdontologoResultadoDto.class))
-                    .toList();
+                    .toList());
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar listar todos los odontologos", exception);
-            return null;
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 
     @PostMapping()
-    public OdontologoResultadoDto guardarOdontologo(@RequestBody NuevoOdontologoDto nuevoOdontologoDto) {
+    public ResponseEntity<OdontologoResultadoDto> guardar(@RequestBody NuevoOdontologoDto nuevoOdontologoDto) {
         log.info("Se recibio: " + nuevoOdontologoDto + " para guardar");
 
         try {
             Odontologo odontologo = odontologoService.guardar(mapper.convertValue(nuevoOdontologoDto, Odontologo.class));
-            return mapper.convertValue(odontologo, OdontologoResultadoDto.class);
+            return ResponseEntity.ok(mapper.convertValue(odontologo, OdontologoResultadoDto.class));
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar guardar el odontologo", exception);
-
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 
     @PutMapping("/{id}")
-    public OdontologoResultadoDto actualizar(@RequestBody ActualizarOdontologoDto odontologoDto, @PathVariable Long id) {
+    public ResponseEntity<OdontologoResultadoDto> actualizar(@RequestBody ActualizarOdontologoDto odontologoDto, @PathVariable Long id) {
         log.debug("Se recibio: " + odontologoDto + " para actualizar el odontologo con el id " + id);
 
         try {
             Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
             odontologo.setId(id);
             odontologo = odontologoService.actualizar(odontologo);
-            return mapper.convertValue(odontologo, OdontologoResultadoDto.class);
+            return ResponseEntity.ok(mapper.convertValue(odontologo, OdontologoResultadoDto.class));
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar guardar el odontologo", exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
-        return null;
     }
 
     @DeleteMapping("/{id}")
-    public void eliminar(@PathVariable Long id) {
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
         log.debug("Se recibio la solicitud de eliminar el odontologo con el id " + id);
 
         try {
             odontologoService.eliminar(id);
-
+            return ResponseEntity.noContent().build();
         } catch (Exception exception) {
             log.error("Se produjo un error al intentar eliminar el odontologocon el id " + id, exception);
+            return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
 }
