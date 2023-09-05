@@ -7,8 +7,7 @@ import java.util.Date;
 
 @Getter
 @AllArgsConstructor
-public class OutputPacienteDto {
-    private Long id;
+public class NuevoPacienteDto {
     private String nombre;
     private String apellido;
     private String dni;

@@ -1,11 +1,11 @@
 package com.digitalhouse.gestion_odontologica.util;
 
-import com.digitalhouse.gestion_odontologica.dto.InputPacienteDto;
+import com.digitalhouse.gestion_odontologica.dto.NuevoPacienteDto;
 import com.digitalhouse.gestion_odontologica.entity.Domicilio;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 
 public class Mapper {
-    public static Paciente map(Long id, InputPacienteDto dto) { // TODO see if it is necessary
+    public static Paciente map(Long id, NuevoPacienteDto dto) { // TODO see if it is necessary
         Paciente paciente = new Paciente();
         Domicilio domicilio = new Domicilio();
 

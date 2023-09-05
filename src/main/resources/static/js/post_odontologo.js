@@ -16,7 +16,7 @@ window.addEventListener('load', function () {
         };
         //invocamos utilizando la función fetch la API peliculas con el método POST que guardará
         //la película que enviaremos en formato JSON
-        const url = '/odontologos';
+        const url = '/odontologo';
         const settings = {
             method: 'POST',
             headers: {
@@ -26,7 +26,10 @@ window.addEventListener('load', function () {
         }
 
         fetch(url, settings)
-            .then(response => response.json())
+            .then(response => {
+            console.log(response.json())
+            response.json()
+            })
             .then(data => {
                  //Si no hay ningun error se muestra un mensaje diciendo que el odontologo
                  //se agrego bien
@@ -36,7 +39,7 @@ window.addEventListener('load', function () {
 
                  document.querySelector('#response').innerHTML = successAlert;
                  document.querySelector('#response').style.display = "block";
-                 resetUploadForm();
+                 //resetUploadForm();
 
             })
             .catch(error => {
@@ -49,7 +52,8 @@ window.addEventListener('load', function () {
                       document.querySelector('#response').innerHTML = errorAlert;
                       document.querySelector('#response').style.display = "block";
                      //se dejan todos los campos vacíos por si se quiere ingresar otro odontologo
-                     resetUploadForm();})
+                     //resetUploadForm();
+                     })
     });
 
 

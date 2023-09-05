@@ -19,10 +19,11 @@ public class OdontologoService implements IOdontologoService {
     private final OdontolgoRepository odontologoReository;
     private final ObjectMapper mapper;
 
-    public void guardar(Odontologo odontologo) {
+    public Odontologo guardar(Odontologo odontologo) {
         try {
-            odontologoReository.save(odontologo);
+            odontologo = odontologoReository.save(odontologo);
             log.debug("Se guardo el odontologo");
+            return  odontologo;
         } catch (Exception e) {
             log.error("No se pudo guardar el odontologo", e);
         }
@@ -38,12 +39,12 @@ public class OdontologoService implements IOdontologoService {
     }
 
     @Override
-    public void actualizar(Odontologo odontologo) throws Exception {
-        //todo
+    public Odontologo actualizar(Odontologo odontologo) throws Exception {
+        return odontologoReository.update(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido());
     }
 
     @Override
-    public void eliminar(int matricula) throws Exception {
-        //todo
+    public void eliminar(Long id) throws Exception {
+        odontologoReository.deleteById(id);
     }
 }

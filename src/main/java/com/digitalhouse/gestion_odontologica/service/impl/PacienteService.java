@@ -1,5 +1,7 @@
 package com.digitalhouse.gestion_odontologica.service.impl;
 
+import com.digitalhouse.gestion_odontologica.entity.Domicilio;
+import com.digitalhouse.gestion_odontologica.repository.DomicilioRepository;
 import com.digitalhouse.gestion_odontologica.service.IPacienteService;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 import com.digitalhouse.gestion_odontologica.repository.PacienteRepository;
@@ -15,6 +17,7 @@ import java.util.List;
 @Service
 public class PacienteService implements IPacienteService {
     private final PacienteRepository pacienteRepository;
+    private final DomicilioRepository domicilioRepository;
 
     @Override
     public Paciente guardar(Paciente paciente) {
@@ -28,7 +31,16 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente actualizar(Paciente paciente) throws Exception {
-        return paciente; //pacienteRepository.update(paciente);
+        return pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+    }
+
+    @Override
+    public Paciente actualizar(Long id, Domicilio domicilio) throws Exception {
+        Paciente paciente = pacienteRepository.getReferenceById(id);
+        Long domicilioId = paciente.getDomicilio().getId();
+        domicilio = domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(),domicilio.getDepartamento(), domicilio.getPais());
+        paciente.setDomicilio(domicilio);
+        return paciente;
     }
 
     @Override
