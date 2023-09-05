@@ -26,6 +26,7 @@ public class OdontologoService implements IOdontologoService {
             return  odontologo;
         } catch (Exception e) {
             log.error("No se pudo guardar el odontologo", e);
+            throw e;
         }
     }
 
