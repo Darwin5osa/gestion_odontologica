@@ -5,18 +5,12 @@ import com.digitalhouse.gestion_odontologica.entity.Turno;
 import java.util.List;
 
 public interface ITurnoService {
-    void guardar(Turno turno) throws Exception;
+    Turno guardar(Turno turno) throws Exception;
 
     List<Turno> listarTodos() throws Exception;
 
-    void actualizar(Turno turno) throws Exception;
+    Turno actualizar(Turno turno) throws Exception;
 
-    void eliminar(int dni) throws Exception;
+    void eliminar(Long id) throws Exception;
 
-    // crear
-    // asignar odontologo
-    // asignar pacientes
-    // reagendar fecha y hora
-    // eliminar
-    // listar
 }

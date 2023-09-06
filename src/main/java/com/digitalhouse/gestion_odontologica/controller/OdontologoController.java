@@ -15,9 +15,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Slf4j
 @RequestMapping("/odontologo")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-@Slf4j
+
 public class OdontologoController {
     private final IOdontologoService odontologoService;
     private final ObjectMapper mapper;
