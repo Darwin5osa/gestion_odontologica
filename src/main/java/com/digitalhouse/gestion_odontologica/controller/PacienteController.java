@@ -83,13 +83,13 @@ public class PacienteController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        log.debug("Se recibio la solicitud de eliminar el paciente con el id " + id);
+        log.debug("Se recibió la solicitud de eliminar el paciente con el id " + id);
 
         try {
             pacienteService.eliminar(id);
             return ResponseEntity.noContent().build();
         } catch (Exception exception) {
-            log.error("Se produjo un error al intentar eliminar el pacientecon el id " + id, exception);
+            log.error("Se produjo un error al intentar eliminar el paciente con el id " + id, exception);
             return ResponseEntity.internalServerError().build(); // todo improve return
         }
     }
