@@ -41,7 +41,12 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public Odontologo actualizar(Odontologo odontologo) throws Exception {
-        return odontologoReository.update(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido());
+        odontologoReository.update(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido());
+        return obtenerUnoPorId(odontologo.getId());
+    }
+
+    public Odontologo obtenerUnoPorId(Long id) {
+        return odontologoReository.findById(id).orElseThrow();
     }
 
     @Override
