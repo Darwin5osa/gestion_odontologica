@@ -5,11 +5,13 @@ import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import java.util.List;
 
 public interface IOdontologoService {
-    Odontologo guardar(Odontologo odontologo) throws Exception;
+    Odontologo guardar(Odontologo odontologo);
 
-    List<Odontologo> listarTodos() throws Exception;
+    List<Odontologo> listarTodos();
 
-    Odontologo actualizar(Odontologo odontologo) throws Exception;
+    Odontologo actualizar(Odontologo odontologo);
 
-    void eliminar(Long id) throws Exception;
+    Odontologo obtenerUnoPorId(Long id);
+
+    void eliminar(Long id);
 }

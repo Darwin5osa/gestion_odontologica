@@ -21,7 +21,12 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente guardar(Paciente paciente) {
-        return pacienteRepository.save(paciente);
+        Validaciones.validarNombre(paciente.getNombre());
+        Validaciones.validarApellido(paciente.getApellido());
+
+        paciente = pacienteRepository.save(paciente);
+        log.debug("Se guardo el paciente id " + paciente.getId());
+        return paciente;
     }
 
     @Override
@@ -31,15 +36,22 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente actualizar(Paciente paciente) throws Exception {
-        return pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+        Validaciones.validarNombre(paciente.getNombre());
+        Validaciones.validarApellido(paciente.getApellido());
+
+        paciente = pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+        log.debug("Se actualizo el paciente id " + paciente.getId());
+        return paciente;
     }
 
     @Override
     public Paciente actualizar(Long id, Domicilio domicilio) throws Exception {
         Paciente paciente = pacienteRepository.getReferenceById(id);
         Long domicilioId = paciente.getDomicilio().getId();
+
         domicilio = domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(),domicilio.getDepartamento(), domicilio.getPais());
         paciente.setDomicilio(domicilio);
+        log.debug("Se actualizo el domicilio de paciente id " + paciente.getId());
         return paciente;
     }
 
