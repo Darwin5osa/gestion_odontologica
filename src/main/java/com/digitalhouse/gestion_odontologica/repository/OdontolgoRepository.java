@@ -6,11 +6,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 @Repository
 public interface OdontolgoRepository extends JpaRepository<Odontologo,Long> {
     @Modifying
-    @Query(value = "UPDATE odontologo o" +
-            "SET o.nombre = :nombre, o.apellido = :apellido" +
+    @Transactional
+    @Query(value = "UPDATE Odontologo o " +
+            "SET o.nombre = :nombre, o.apellido = :apellido " +
             "WHERE o.id = :id")
-    Odontologo update(Long id, String nombre, String apellido);
+    void update(Long id, String nombre, String apellido);
 }

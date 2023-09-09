@@ -6,11 +6,14 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
+
 @Repository
 public interface PacienteRepository extends JpaRepository<Paciente,Long> {
     @Modifying
-    @Query(value = "UPDATE Paciente p" +
-            "SET p.nombre = :nombre, p.apellido = :apellido" +
+    @Transactional
+    @Query(value = "UPDATE Paciente p " +
+            "SET p.nombre = :nombre, p.apellido = :apellido " +
             "WHERE p.id = :id")
     Paciente update(String nombre, String apellido, Long id);
 }
