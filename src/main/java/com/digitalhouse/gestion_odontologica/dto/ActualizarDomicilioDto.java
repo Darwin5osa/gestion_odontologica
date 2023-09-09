@@ -1,4 +1,3 @@
 package com.digitalhouse.gestion_odontologica.dto;
 
-public class ActualizarDomicilioDto {
-}
+public class ActualizarDomicilioDto {} //todo finish it

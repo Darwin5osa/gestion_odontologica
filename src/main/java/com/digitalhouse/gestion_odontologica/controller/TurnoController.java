@@ -24,7 +24,6 @@ public class TurnoController {
     private final ObjectMapper mapper;
 
     @GetMapping()
-
     public ResponseEntity<List<TurnoResultadoDto>> listar(){
         try{
             return ResponseEntity.ok(turnoService.listarTodos()
@@ -36,6 +35,7 @@ public class TurnoController {
             return ResponseEntity.internalServerError().build();
         }
     }
+
     @PostMapping
     public ResponseEntity<TurnoResultadoDto> guardar(@RequestBody NuevoTurnoDto nuevoTurnoDto) {
         log.info("Se recibio: " + nuevoTurnoDto + " para guardar");

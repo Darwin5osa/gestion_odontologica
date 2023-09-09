@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+
 @Entity
 @Getter
 @Setter
@@ -31,5 +32,13 @@ public class Turno {
     @JoinColumn(name = "OdontologoId")
     @JsonIgnore
     private Odontologo odontologo;
+
+    public Long getOdontologoId() {
+        return this.odontologo.getId();
+    }
+
+    public Long getPacienteId() {
+        return this.paciente.getId();
+    }
 }
 
