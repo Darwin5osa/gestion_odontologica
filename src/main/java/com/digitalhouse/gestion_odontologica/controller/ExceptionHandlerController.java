@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.persistence.EntityNotFoundException;
+
 @Log4j2
 @ControllerAdvice
 public class ExceptionHandlerController {
@@ -24,6 +26,17 @@ public class ExceptionHandlerController {
         ErrorDTO response = new ErrorDTO(HttpStatus.BAD_REQUEST.getReasonPhrase(), mensaje);
 
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ErrorDTO> EntityNotFoundHandler(EntityNotFoundException exception) {
+        String mensaje = "No se encontro el recurso";
+
+        logException(exception, mensaje);
+
+        ErrorDTO response = new ErrorDTO(HttpStatus.NOT_FOUND.getReasonPhrase(), mensaje);
+
+        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
     }
 
     private void logException(RuntimeException exception, String mensajeRespuesta) {

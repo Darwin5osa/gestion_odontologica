@@ -3,7 +3,6 @@ package com.digitalhouse.gestion_odontologica.service.impl;
 import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import com.digitalhouse.gestion_odontologica.repository.OdontolgoRepository;
 import com.digitalhouse.gestion_odontologica.service.IOdontologoService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +16,13 @@ import java.util.List;
 public class OdontologoService implements IOdontologoService {
 
     private final OdontolgoRepository odontologoReository;
-    private final ObjectMapper mapper;
 
     public Odontologo guardar(Odontologo odontologo) {
         Validaciones.validarNombre(odontologo.getNombre());
         Validaciones.validarApellido(odontologo.getApellido());
 
         odontologo = odontologoReository.save(odontologo);
-        log.debug("Se guardo el odontologo");
+        log.debug("Se guardo el odontologo id " + odontologo.getId());
         return odontologo;
     }
 
@@ -38,16 +36,13 @@ public class OdontologoService implements IOdontologoService {
         Validaciones.validarApellido(odontologo.getApellido());
 
         odontologoReository.update(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido());
-        return obtenerUnoPorId(odontologo.getId());
-    }
-
-    @Override
-    public Odontologo obtenerUnoPorId(Long id) {
-        return odontologoReository.findById(id).orElseThrow();
+        log.debug("Se actualizo el paciente id " + odontologo.getId());
+        return odontologoReository.getReferenceById(odontologo.getId());
     }
 
     @Override
     public void eliminar(Long id) {
         odontologoReository.deleteById(id);
+        log.debug("Se elimino el odontologo id " + id);
     }
 }

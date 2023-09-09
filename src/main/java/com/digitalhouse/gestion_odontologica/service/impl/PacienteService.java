@@ -32,10 +32,11 @@ public class PacienteService implements IPacienteService {
     @Override
     public void eliminar(Long id) {
         pacienteRepository.deleteById(id);
+        log.debug("Se elimino el paciente id " + id);
     }
 
     @Override
-    public Paciente actualizar(Paciente paciente) throws Exception {
+    public Paciente actualizar(Paciente paciente) {
         Validaciones.validarNombre(paciente.getNombre());
         Validaciones.validarApellido(paciente.getApellido());
 
@@ -45,7 +46,7 @@ public class PacienteService implements IPacienteService {
     }
 
     @Override
-    public Paciente actualizar(Long id, Domicilio domicilio) throws Exception {
+    public Paciente actualizar(Long id, Domicilio domicilio) {
         Paciente paciente = pacienteRepository.getReferenceById(id);
         Long domicilioId = paciente.getDomicilio().getId();
 

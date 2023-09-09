@@ -25,7 +25,13 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public Turno guardar(Turno turno) {
-        return turnoRepository.save(turno);
+        turno.setOdontologo(odontolgoRepository.getReferenceById(turno.getOdontologoId()));
+        turno.setPaciente(pacienteRepository.getReferenceById(turno.getPacienteId()));
+        
+        turno = turnoRepository.save(turno);
+        log.debug("Se guardo el turno id " + turno.getId());
+
+        return turno;
     }
 
     @Override
@@ -34,8 +40,15 @@ public class TurnoService implements ITurnoService {
     }
 
     @Override
-    public Turno actualizar(Turno turno) throws Exception {
-        return turnoRepository.update(turno.getId(), turno.getFecha(), turno.getOdontologoId(), turno.getPacienteId());
+    public Turno actualizar(Turno turno) {
+        turno.setOdontologo(odontolgoRepository.getReferenceById(turno.getOdontologoId()));
+        turno.setPaciente(pacienteRepository.getReferenceById(turno.getPacienteId()));
+        
+        turnoRepository.update(turno.getId(), turno.getFecha(), turno.getOdontologoId(), turno.getPacienteId());
+        turno = turnoRepository.getReferenceById(turno.getId());
+        log.debug("Se guardo el turno id " + turno.getId());
+
+        return turno;
     }
 
     @Override
