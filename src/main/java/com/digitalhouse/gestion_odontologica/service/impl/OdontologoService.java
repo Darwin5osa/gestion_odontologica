@@ -1,8 +1,8 @@
 package com.digitalhouse.gestion_odontologica.service.impl;
 
-import com.digitalhouse.gestion_odontologica.service.IOdontologoService;
 import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import com.digitalhouse.gestion_odontologica.repository.OdontolgoRepository;
+import com.digitalhouse.gestion_odontologica.service.IOdontologoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,37 +20,34 @@ public class OdontologoService implements IOdontologoService {
     private final ObjectMapper mapper;
 
     public Odontologo guardar(Odontologo odontologo) {
-        try {
-            odontologo = odontologoReository.save(odontologo);
-            log.debug("Se guardo el odontologo");
-            return  odontologo;
-        } catch (Exception e) {
-            log.error("No se pudo guardar el odontologo", e);
-            throw e;
-        }
+        Validaciones.validarNombre(odontologo.getNombre());
+        Validaciones.validarApellido(odontologo.getApellido());
+
+        odontologo = odontologoReository.save(odontologo);
+        log.debug("Se guardo el odontologo");
+        return odontologo;
     }
 
     public List<Odontologo> listarTodos() {
-        try {
-            return odontologoReository.findAll();
-        } catch (Exception e) {
-            log.error("No se pudo agregar el odontólogo", e);
-            return null;
-        }
+        return odontologoReository.findAll();
     }
 
     @Override
-    public Odontologo actualizar(Odontologo odontologo) throws Exception {
+    public Odontologo actualizar(Odontologo odontologo) {
+        Validaciones.validarNombre(odontologo.getNombre());
+        Validaciones.validarApellido(odontologo.getApellido());
+
         odontologoReository.update(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido());
         return obtenerUnoPorId(odontologo.getId());
     }
 
+    @Override
     public Odontologo obtenerUnoPorId(Long id) {
         return odontologoReository.findById(id).orElseThrow();
     }
 
     @Override
-    public void eliminar(Long id) throws Exception {
+    public void eliminar(Long id) {
         odontologoReository.deleteById(id);
     }
 }
