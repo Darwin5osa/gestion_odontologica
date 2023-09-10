@@ -25,8 +25,8 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public Turno guardar(Turno turno) {
-        turno.setOdontologo(odontolgoRepository.getReferenceById(turno.getOdontologoId()));
-        turno.setPaciente(pacienteRepository.getReferenceById(turno.getPacienteId()));
+        turno.setOdontologo(odontolgoRepository.getReferenceById(turno.getOdontologo().getId()));
+        turno.setPaciente(pacienteRepository.getReferenceById(turno.getPaciente().getId()));
         
         turno = turnoRepository.save(turno);
         log.debug("Se guardo el turno id " + turno.getId());
@@ -41,11 +41,11 @@ public class TurnoService implements ITurnoService {
 
     @Override
     public Turno actualizar(Turno turno) {
-        turno.setOdontologo(odontolgoRepository.getReferenceById(turno.getOdontologoId()));
-        turno.setPaciente(pacienteRepository.getReferenceById(turno.getPacienteId()));
+        turno.setOdontologo(odontolgoRepository.getReferenceById(turno.getOdontologo().getId()));
+        turno.setPaciente(pacienteRepository.getReferenceById(turno.getPaciente().getId()));
         
-        turnoRepository.update(turno.getId(), turno.getFecha(), turno.getOdontologoId(), turno.getPacienteId());
-        turno = turnoRepository.getReferenceById(turno.getId());
+        turnoRepository.update(turno.getId(), turno.getFecha(), turno.getOdontologo().getId(), turno.getPaciente().getId());
+        turno = turnoRepository.findById(turno.getId()).get();
         log.debug("Se guardo el turno id " + turno.getId());
 
         return turno;

@@ -1,7 +1,6 @@
 package com.digitalhouse.gestion_odontologica.controller;
 
 
-import com.digitalhouse.gestion_odontologica.dto.ActualizarTurnoDto;
 import com.digitalhouse.gestion_odontologica.dto.NuevoTurnoDto;
 import com.digitalhouse.gestion_odontologica.dto.TurnoResultadoDto;
 import com.digitalhouse.gestion_odontologica.entity.Turno;
@@ -43,10 +42,10 @@ public class TurnoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TurnoResultadoDto> actualizar(@RequestBody ActualizarTurnoDto turnoDto, @PathVariable Long id) {
+    public ResponseEntity<TurnoResultadoDto> actualizar(@RequestBody NuevoTurnoDto turnoDto, @PathVariable Long id) {
         log.debug("Se recibio: " + turnoDto + " para actualizar el turno con el id " + id);
 
-        Turno turno = mapper.convertValue(turnoDto, Turno.class);
+        Turno turno = Mapper.map(turnoDto);
         turno.setId(id);
         turno = turnoService.actualizar(turno);
         return ResponseEntity.ok(mapper.convertValue(turno, TurnoResultadoDto.class));

@@ -24,6 +24,7 @@ public class PacienteService implements IPacienteService {
         Validaciones.validarNombre(paciente.getNombre());
         Validaciones.validarApellido(paciente.getApellido());
 
+        paciente.setDomicilio(domicilioRepository.save(paciente.getDomicilio()));
         paciente = pacienteRepository.save(paciente);
         log.debug("Se guardo el paciente id " + paciente.getId());
         return paciente;
