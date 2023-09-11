@@ -37,7 +37,7 @@ public class OdontologoService implements IOdontologoService {
 
         odontologoReository.update(odontologo.getId(), odontologo.getNombre(), odontologo.getApellido());
         log.debug("Se actualizo el paciente id " + odontologo.getId());
-        return odontologoReository.getReferenceById(odontologo.getId());
+        return odontologoReository.findById(odontologo.getId()).get();
     }
 
     @Override

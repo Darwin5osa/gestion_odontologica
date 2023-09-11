@@ -41,7 +41,8 @@ public class PacienteService implements IPacienteService {
         Validaciones.validarNombre(paciente.getNombre());
         Validaciones.validarApellido(paciente.getApellido());
 
-        paciente = pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+        pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+        paciente = pacienteRepository.findById(paciente.getId()).get();
         log.debug("Se actualizo el paciente id " + paciente.getId());
         return paciente;
     }
@@ -51,7 +52,8 @@ public class PacienteService implements IPacienteService {
         Paciente paciente = pacienteRepository.getReferenceById(id);
         Long domicilioId = paciente.getDomicilio().getId();
 
-        domicilio = domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(),domicilio.getDepartamento(), domicilio.getPais());
+        domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(), domicilio.getDepartamento(), domicilio.getPais());
+        domicilio = domicilioRepository.findById(domicilioId).get();
         paciente.setDomicilio(domicilio);
         log.debug("Se actualizo el domicilio de paciente id " + paciente.getId());
         return paciente;
