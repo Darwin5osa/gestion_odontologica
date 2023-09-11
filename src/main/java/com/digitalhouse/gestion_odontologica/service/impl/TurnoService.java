@@ -16,7 +16,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 
-public abstract class TurnoService implements ITurnoService {
+public class TurnoService implements ITurnoService {
 
     private final TurnoRepository turnoRepository;
 
