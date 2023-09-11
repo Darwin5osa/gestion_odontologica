@@ -15,5 +15,5 @@ public interface PacienteRepository extends JpaRepository<Paciente,Long> {
     @Query(value = "UPDATE Paciente p " +
             "SET p.nombre = :nombre, p.apellido = :apellido " +
             "WHERE p.id = :id")
-    Paciente update(String nombre, String apellido, Long id);
+    void update(String nombre, String apellido, Long id);
 }

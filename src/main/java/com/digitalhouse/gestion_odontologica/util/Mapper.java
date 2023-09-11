@@ -1,26 +1,23 @@
 package com.digitalhouse.gestion_odontologica.util;
 
-import com.digitalhouse.gestion_odontologica.dto.NuevoPacienteDto;
-import com.digitalhouse.gestion_odontologica.entity.Domicilio;
+import com.digitalhouse.gestion_odontologica.dto.NuevoTurnoDto;
+import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
+import com.digitalhouse.gestion_odontologica.entity.Turno;
 
 public class Mapper {
-    public static Paciente map(Long id, NuevoPacienteDto dto) { // TODO see if it is necessary
+    public static Turno map(NuevoTurnoDto dto) { // TODO see if it is necessary
+        Turno turno = new Turno();
         Paciente paciente = new Paciente();
-        Domicilio domicilio = new Domicilio();
+        Odontologo odontologo = new Odontologo();
 
-        paciente.setApellido(dto.getApellido());
-        paciente.setDni(dto.getDni());
-        paciente.setNombre(dto.getNombre());
-        paciente.setDomicilio(domicilio);
-        paciente.setId(id);
+        paciente.setId(dto.getPacienteId());
+        odontologo.setId(dto.getOdontologoId());
 
-        domicilio.setNumPuerta(dto.getDomicilio().getNumPuerta());
-        domicilio.setCalle(dto.getDomicilio().getCalle());
-        domicilio.setCiudad(dto.getDomicilio().getCiudad());
-        domicilio.setDepartamento(dto.getDomicilio().getDepartamento());
-        domicilio.setPais(dto.getDomicilio().getPais());
+        turno.setFecha(dto.getFecha());
+        turno.setOdontologo(odontologo);
+        turno.setPaciente(paciente);
 
-        return paciente;
+        return turno;
     }
 }

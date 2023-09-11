@@ -10,10 +10,8 @@ import java.util.Date;
 @Getter
 @AllArgsConstructor
 public class TurnoResultadoDto {
-
     private Long id;
     private Date fecha;
     private Paciente paciente;
     private Odontologo odontologo;
-
 }

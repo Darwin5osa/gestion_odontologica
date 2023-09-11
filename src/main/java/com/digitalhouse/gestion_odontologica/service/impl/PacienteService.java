@@ -8,6 +8,7 @@ import com.digitalhouse.gestion_odontologica.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class PacienteService implements IPacienteService {
         Validaciones.validarNombre(paciente.getNombre());
         Validaciones.validarApellido(paciente.getApellido());
 
+        paciente.setDomicilio(domicilioRepository.save(paciente.getDomicilio()));
         paciente = pacienteRepository.save(paciente);
         log.debug("Se guardo el paciente id " + paciente.getId());
         return paciente;
@@ -31,25 +33,32 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public void eliminar(Long id) {
-        pacienteRepository.deleteById(id);
+        try {
+            pacienteRepository.deleteById(id);
+            log.debug("Se elimino el paciente id " + id);
+        } catch (EmptyResultDataAccessException exception) {
+            log.debug("El paciente con id " + id + "no existía");
+        }
     }
 
     @Override
-    public Paciente actualizar(Paciente paciente) throws Exception {
+    public Paciente actualizar(Paciente paciente) {
         Validaciones.validarNombre(paciente.getNombre());
         Validaciones.validarApellido(paciente.getApellido());
 
-        paciente = pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+        pacienteRepository.update(paciente.getNombre(), paciente.getApellido(), paciente.getId());
+        paciente = pacienteRepository.findById(paciente.getId()).get();
         log.debug("Se actualizo el paciente id " + paciente.getId());
         return paciente;
     }
 
     @Override
-    public Paciente actualizar(Long id, Domicilio domicilio) throws Exception {
-        Paciente paciente = pacienteRepository.getReferenceById(id);
+    public Paciente actualizar(Long id, Domicilio domicilio) {
+        Paciente paciente = pacienteRepository.findById(id).get();
         Long domicilioId = paciente.getDomicilio().getId();
 
-        domicilio = domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(),domicilio.getDepartamento(), domicilio.getPais());
+        domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(), domicilio.getDepartamento(), domicilio.getPais());
+        domicilio = domicilioRepository.findById(domicilioId).get();
         paciente.setDomicilio(domicilio);
         log.debug("Se actualizo el domicilio de paciente id " + paciente.getId());
         return paciente;

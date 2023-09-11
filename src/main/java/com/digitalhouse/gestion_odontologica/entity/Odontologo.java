@@ -1,5 +1,6 @@
 package com.digitalhouse.gestion_odontologica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,7 +14,7 @@ import java.util.List;
 public class Odontologo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String nombre;
@@ -23,5 +24,6 @@ public class Odontologo {
     private Integer matricula;
 
     @OneToMany(mappedBy = "odontologo")
+    @JsonIgnore
     private List<Turno> turnos = new ArrayList<>();
 }
