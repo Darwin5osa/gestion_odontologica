@@ -1,5 +1,6 @@
 package com.digitalhouse.gestion_odontologica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 public class Domicilio {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(name = "num_puerta")
@@ -25,6 +26,7 @@ public class Domicilio {
 
     private String pais;
 
-    @OneToOne(mappedBy = "domicilio")
+    @OneToOne(mappedBy = "domicilio", cascade = CascadeType.ALL)
+    @JsonIgnore
     private Paciente paciente;
 }

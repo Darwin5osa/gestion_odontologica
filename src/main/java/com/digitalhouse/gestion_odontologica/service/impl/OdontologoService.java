@@ -6,6 +6,7 @@ import com.digitalhouse.gestion_odontologica.service.IOdontologoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -42,7 +43,11 @@ public class OdontologoService implements IOdontologoService {
 
     @Override
     public void eliminar(Long id) {
-        odontologoReository.deleteById(id);
-        log.debug("Se elimino el odontologo id " + id);
+        try {
+            odontologoReository.deleteById(id);
+            log.debug("Se elimino el odontologo id " + id);
+        } catch (EmptyResultDataAccessException exception) {
+            log.debug("El odontologo con id " + id + "no existía");
+        }
     }
 }

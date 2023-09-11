@@ -1,5 +1,6 @@
 package com.digitalhouse.gestion_odontologica.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,7 @@ import java.util.List;
 public class Paciente {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String nombre;
@@ -27,10 +28,11 @@ public class Paciente {
     @Column(name = "fecha_ingreso")
     private Date fechaIngreso;
 
-    @OneToOne(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 
     @OneToMany(mappedBy = "paciente")
+    @JsonIgnore
     private List<Turno> turnos = new ArrayList<>();
 }

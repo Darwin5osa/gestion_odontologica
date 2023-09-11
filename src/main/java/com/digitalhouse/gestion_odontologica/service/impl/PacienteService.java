@@ -8,6 +8,7 @@ import com.digitalhouse.gestion_odontologica.repository.PacienteRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,8 +33,12 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public void eliminar(Long id) {
-        pacienteRepository.deleteById(id);
-        log.debug("Se elimino el paciente id " + id);
+        try {
+            pacienteRepository.deleteById(id);
+            log.debug("Se elimino el paciente id " + id);
+        } catch (EmptyResultDataAccessException exception) {
+            log.debug("El paciente con id " + id + "no existía");
+        }
     }
 
     @Override
@@ -49,7 +54,7 @@ public class PacienteService implements IPacienteService {
 
     @Override
     public Paciente actualizar(Long id, Domicilio domicilio) {
-        Paciente paciente = pacienteRepository.getReferenceById(id);
+        Paciente paciente = pacienteRepository.findById(id).get();
         Long domicilioId = paciente.getDomicilio().getId();
 
         domicilioRepository.update(domicilioId, domicilio.getNumPuerta(), domicilio.getCalle(), domicilio.getCiudad(), domicilio.getDepartamento(), domicilio.getPais());

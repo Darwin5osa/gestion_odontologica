@@ -17,7 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Turno {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     @Column(name = "fecha")
@@ -25,12 +25,10 @@ public class Turno {
 
     @ManyToOne
     @JoinColumn(name = "PacienteId")
-    @JsonIgnore
     private Paciente paciente;
 
     @ManyToOne
     @JoinColumn(name = "OdontologoId")
-    @JsonIgnore
     private Odontologo odontologo;
 }
 
