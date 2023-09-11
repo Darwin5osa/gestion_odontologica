@@ -15,6 +15,5 @@ public interface DomicilioRepository extends JpaRepository<Domicilio,Long> {
     @Query(value = "UPDATE Domicilio d " +
             "SET d.numPuerta = :numPuerta, d.calle = :calle, d.ciudad = :ciudad, d.departamento = :departamento, d. pais= :pais " +
             "WHERE d.id = :id")
-    Domicilio update(Long id, Integer numPuerta, String calle, String ciudad, String departamento, String pais);
-
+    void update(Long id, Integer numPuerta, String calle, String ciudad, String departamento, String pais);
 }

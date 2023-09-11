@@ -16,7 +16,7 @@ import javax.persistence.*;
 public class Usuario {
     //TODO add the properties
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String nombre;

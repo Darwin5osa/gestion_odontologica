@@ -1,12 +1,13 @@
 package com.digitalhouse.gestion_odontologica.service.impl;
 
+import com.digitalhouse.gestion_odontologica.service.exception.ApellidoInvalidoException;
 import com.digitalhouse.gestion_odontologica.service.exception.NombreInvalidoException;
 
 import java.util.regex.*;
 
 public class Validaciones {
     public static void validarNombre(String nombre) {
-        Pattern pat = Pattern.compile(obtenerRegexNombre(3, 39));
+        Pattern pat = Pattern.compile(obtenerRegexNombre(1, 39));
         Matcher mat = pat.matcher(nombre);
 
         if (!mat.matches()) {
@@ -19,12 +20,12 @@ public class Validaciones {
         Matcher mat = pat.matcher(nombre);
 
         if (!mat.matches()) {
-            throw new NombreInvalidoException(nombre);
+            throw new ApellidoInvalidoException(nombre);
         }
     }
 
     private static String obtenerRegexNombre(int minLargo, int maxLargo) {
-        return "^[A-Za-z]{" + minLargo + ", " + maxLargo + "}$";
+        return "^[\\p{L}áéíóúÁÉÍÓÚ]{" + minLargo + "," + maxLargo + "}$";
     }
 }
 
