@@ -1,4 +1,4 @@
-package com.digitalhouse.gestion_odontologica.service.impl;
+package com.digitalhouse.gestion_odontologica.util;
 
 import com.digitalhouse.gestion_odontologica.service.exception.ApellidoInvalidoException;
 import com.digitalhouse.gestion_odontologica.service.exception.NombreInvalidoException;

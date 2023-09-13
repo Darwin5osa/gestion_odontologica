@@ -3,6 +3,7 @@ package com.digitalhouse.gestion_odontologica.service.impl;
 import com.digitalhouse.gestion_odontologica.entity.Odontologo;
 import com.digitalhouse.gestion_odontologica.repository.OdontolgoRepository;
 import com.digitalhouse.gestion_odontologica.service.IOdontologoService;
+import com.digitalhouse.gestion_odontologica.util.Validaciones;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
