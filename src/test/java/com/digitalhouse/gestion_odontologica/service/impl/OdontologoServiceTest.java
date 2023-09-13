@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -33,8 +34,14 @@ public class OdontologoServiceTest {
 
     @Test
     public void testGuardarOdontologo() {
-        // Configura tus objetos mock y comportamientos aquí según sea necesario
-        Odontologo odontologo = new Odontologo();
+
+        Odontologo odontologo = new Odontologo ();
+        odontologo.setNombre("Agustina");
+        odontologo.setApellido("Zabaleta");
+        odontologo.setMatricula(23344);
+
+        Odontologo expectedOdontologo = new Odontologo(1L, odontologo.getNombre(), odontologo.getApellido(), odontologo.getMatricula(), new ArrayList<>());
+        expectedOdontologo.setId(1L);
 
         when(odontologoRepository.save(odontologo)).thenReturn(odontologo);
 
@@ -43,7 +50,7 @@ public class OdontologoServiceTest {
 
         // Assert
         assertNotNull(resultado);
-        assertEquals(odontologo, resultado);
+        assertEquals(expectedOdontologo, resultado);
     }
 
     @Test
