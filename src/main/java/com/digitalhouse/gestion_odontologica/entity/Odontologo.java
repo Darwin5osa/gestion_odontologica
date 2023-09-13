@@ -7,11 +7,14 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@ToString
+@EqualsAndHashCode
 @Entity
 @Table(name = "ODONTOLOGO")
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class Odontologo {
 
     @Id
