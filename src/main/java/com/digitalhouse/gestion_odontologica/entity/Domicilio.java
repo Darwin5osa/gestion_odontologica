@@ -1,7 +1,9 @@
 package com.digitalhouse.gestion_odontologica.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -10,6 +12,8 @@ import javax.persistence.*;
 @Table(name = "DOMICILIO")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Domicilio {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
