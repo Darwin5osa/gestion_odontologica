@@ -29,6 +29,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .rememberMe().userDetailsService(userDetailsService).alwaysRemember(true)
                 .and().logout().deleteCookies("JSESSIONID");
+                /*
+                    En caso de el uso de postman usar
+                    .httpBasic();
+                    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                 */
 
         http.cors().disable();
         http.csrf().disable();
