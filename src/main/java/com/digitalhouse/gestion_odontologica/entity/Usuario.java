@@ -1,16 +1,17 @@
 package com.digitalhouse.gestion_odontologica.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@Data
+@Table(name = "USUARIO")
+@Getter
+@Setter
 public class Usuario {
     @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;
 
     private String nombre;

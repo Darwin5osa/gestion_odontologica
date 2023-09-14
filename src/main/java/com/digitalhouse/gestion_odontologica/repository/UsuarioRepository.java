@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
@@ -17,4 +18,7 @@ public interface UsuarioRepository extends JpaRepository<Usuario,Long> {
             "SET u.nombre = :nombre, u.username = :username, u.email = :email, u.password = :password, u.rol = :rol " +
             "WHERE u.id = :id")
     void update(Long id, String nombre, String username, String email, String password, UsuarioRoleEnum rol);
+
+
+    Optional<Usuario> findUsuarioByUsername(String username);
 }
