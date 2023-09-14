@@ -26,12 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final UsuarioRepository usuarioRepository;
 
-    private final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder(12);
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         //Buscar usuario de DB
-        log.info(encoder.encode("toor"));
 
         Usuario usuario = usuarioRepository.findUsuarioByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Usuario  no encontrado"));
 

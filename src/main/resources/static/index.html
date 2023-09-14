@@ -12,6 +12,24 @@
 
 </head>
 <body>
+    <script>
+        // Función para verificar si la cookie "JSESSIONID" existe
+        function checkJSessionCookie() {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                if (cookie.startsWith('JSESSIONID=')) {
+                    // La cookie "JSESSIONID" existe, no hacemos nada
+                    return;
+                }
+            }
+            // La cookie "JSESSIONID" no existe, redirigir a /login
+            window.location.href = '/login';
+        }
+    
+        // Llamar a la función cuando la página se carga
+        window.onload = checkJSessionCookie;
+    </script>
 <div class="container">
     <ul class="nav nav-pills">
         <li class="nav-item">
