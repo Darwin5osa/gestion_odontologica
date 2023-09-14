@@ -1,52 +1,101 @@
 package com.digitalhouse.gestion_odontologica.service.impl;
 
-//@SpringBootTest
-/*class OdontologoServiceTest {
-    private OdontologoService service;
+import com.digitalhouse.gestion_odontologica.entity.Odontologo;
+import com.digitalhouse.gestion_odontologica.repository.OdontolgoRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.boot.test.context.SpringBootTest;
 
-    @Test
-    void guardarConH2() {
-        service = new OdontologoService(odontologoDao);
-        OdontologoDaoH2Impl dao = new OdontologoDaoH2Impl();
-        try {
-            dao.crearTablas();
-        } catch (Exception e) {
-            fail();
-        }
-        service.setOdontologoDao(dao);
-        Odontologo odontologo = new Odontologo(22, "Jose", "Perez");
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
-        boolean resultado = service.guardar(odontologo);
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-        assertTrue(resultado);
+@SpringBootTest
+public class OdontologoServiceTest {
+    @Mock
+    private OdontolgoRepository odontologoRepository;
+
+    private OdontologoService odontologoService;
+
+    private Odontologo odontologo;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.openMocks(this);
+        odontologoService = new OdontologoService(odontologoRepository);
+        odontologo = new Odontologo();
+        odontologo.setNombre("Agustina");
+        odontologo.setApellido("Zabaleta");
+        odontologo.setMatricula(23344);
     }
 
     @Test
-    void listarTodosConH2() {
-        service = new OdontologoService(odontologoDao);
-        OdontologoDaoH2Impl dao = new OdontologoDaoH2Impl();
-        try {
-            dao.crearTablas();
-        } catch (Exception e) {
-            fail();
-        }
-        service.setOdontologoDao(dao);
-        List<Odontologo> esperado = generarListaOdontologos();
-        for (Odontologo odontologo : esperado) {
-            service.guardar(odontologo);
-        }
+    public void testGuardarOdontologo() {
+        Odontologo expectedOdontologo = new Odontologo(1L, odontologo.getNombre(), odontologo.getApellido(), odontologo.getMatricula(), new ArrayList<>());
 
-        List<Odontologo> resultado = service.listarTodos();
+        when(odontologoRepository.save(any())).thenReturn(expectedOdontologo);
 
-        assertArrayEquals(esperado.toArray(), resultado.toArray());
+        // Act
+        Odontologo resultado = odontologoService.guardar(odontologo);
+
+        // Assert
+        assertNotNull(resultado);
+        assertEquals(expectedOdontologo, resultado);
     }
 
-    private List<Odontologo> generarListaOdontologos() {
-        List<Odontologo> odontologos = new ArrayList<>();
-        for (int i = 1; i < 10; i++) {
-            Odontologo odontologo = new Odontologo(i * 33576, "Juan", "Fernandez");
-            odontologos.add(odontologo);
-        }
-        return odontologos;
+    @Test
+    public void testEliminarOdontologo() {
+        Long id = 1L;
+
+        // Act
+        odontologoService.eliminar(id);
+
+        // Assert
+        // Verifica que el repositorio se haya llamado para eliminar el odontologo por su ID
+        verify(odontologoRepository, times(1)).deleteById(id);
     }
-}*/
+
+    @Test
+    public void testActualizarOdontologo() {
+        Long id = 1L;
+        odontologo.setId(id);
+
+        // Configura el comportamiento del repositorio mock
+        when(odontologoRepository.findById(any())).thenReturn(Optional.of(odontologo));
+        doNothing().when(odontologoRepository).update(any(), any(), anyString());
+
+        // Llama al método del servicio para actualizar el odontologo
+        Odontologo resultado = odontologoService.actualizar(odontologo);
+
+        // Verifica que el repositorio se haya llamado para obtener el odontologo por su ID
+        verify(odontologoRepository, times(1)).findById(id);
+        // Verifica que el repositorio se haya llamado para guardar el odontologo actualizado
+        verify(odontologoRepository, times(1)).update(any(), any(), anyString());
+        // Verifica que el resultado sea el mismo odontologo actualizado
+        assertEquals(odontologo, resultado);
+    }
+
+    @Test
+    public void testListarTodosLosOdontologos() {
+        // Configura tus objetos mock y comportamientos aquí según sea necesario
+        Odontologo odontologo1 = new Odontologo();
+        Odontologo odontologo2 = new Odontologo();
+        List<Odontologo> odontologos = Arrays.asList(odontologo1, odontologo2);
+
+        when(odontologoRepository.findAll()).thenReturn(odontologos);
+
+        // Act
+        List<Odontologo> odontologosEncontrados = odontologoService.listarTodos();
+
+        // Assert
+        assertNotNull(odontologosEncontrados);
+        assertFalse(odontologosEncontrados.isEmpty());
+        assertEquals(odontologos, odontologosEncontrados);
+    }
+}

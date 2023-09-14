@@ -5,6 +5,7 @@ import com.digitalhouse.gestion_odontologica.repository.DomicilioRepository;
 import com.digitalhouse.gestion_odontologica.service.IPacienteService;
 import com.digitalhouse.gestion_odontologica.entity.Paciente;
 import com.digitalhouse.gestion_odontologica.repository.PacienteRepository;
+import com.digitalhouse.gestion_odontologica.util.Validaciones;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
