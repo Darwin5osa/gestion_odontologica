@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Clinica Odontologica - Eliminar Usuario</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/delete_usuario.js"></script>
+</head>
+<body>
+<div class="container">
+  <h1>Eliminar Usuario</h1>
+
+  <form id="eliminarUsuarioForm">
+    <div class="form-group">
+      <label for="usuarioId">ID del Usuario a Eliminar:</label>
+      <input type="text" class="form-control" id="usuarioId" name="usuarioId" required>
+    </div>
+    <button type="button" class="btn btn-danger" onclick="eliminarUsuario()">Eliminar Usuario</button>
+  </form>
+
+  <div id="mensajeEliminacion" class="mt-3"></div>
+
+  <div> <a href="/usuarioList.html" class="btn btn-primary mt-3">Volver a la Lista de Usuarios</a></div>
+  <div>
+
+    <a id="miEnlace" href="http://localhost:8080/logout">
+      <button type="button" class="btn btn-warning" id="btn-cerrar-sesion">Cerrar Sesión</button>
+    </a>
+
+  </div>
+  <div>
+  </div>
+</div>
+</body>
+</html>
