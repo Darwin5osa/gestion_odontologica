@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <title>Lista de Usuarios - Clínica Odontológica</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="/js/get_usuarios.js"></script>
+</head>
+<body>
+<div class="container">
+  <ul class="nav nav-pills">
+    <li class="nav-item">
+      <a class="nav-link" href="/usuarioAlta.html">Agregar Usuario</a>
+    </li>
+  </ul>
+  <div id="div_usuario_table">
+    <h3>Lista de Usuarios</h3>
+    <div class="row col-md-6 table-responsive">
+      <table id="usuarioTable" class="table table-striped">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Apellido</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody id="usuarioTableBody">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button type="button" class="btn btn-warning" id="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+</div>
+</body>
+</html>
