@@ -41,17 +41,22 @@
                            name="matricula" required></input>
                 </div>
 
-
-                <button type="submit" class="btn btn-danger"
+                <a id="guardar" href="http://localhost:8080/index">
+                <button type="guardar" class="btn btn-danger"
                         id="btn-add-new-odontologo">Guardar</button>
+                </a>
 
-                <button type="submit" class="btn btn-danger"
-                        id="btn-add-new-odontologo">Salir</button>
+                <a id="salirr" href="http://localhost:8080/index">
+                    <button type="submit" class="btn btn-danger"
+                        id="salir">Salir</button>
+                    </a>
             </form>
             <div id="response" style="display:none; margin-top:10px">
             </div>
         </div>
-    </div> <button type="button" class="btn btn-warning" id="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </div> <a id="miEnlace" href="http://localhost:8080/logout">
+    <button type="button" class="btn btn-warning" id="btn-cerrar-sesion">Cerrar Sesión</button>
+</a>
 
 </div>
 
