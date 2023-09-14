@@ -6,7 +6,7 @@ import com.digitalhouse.gestion_odontologica.entity.Paciente;
 import com.digitalhouse.gestion_odontologica.entity.Turno;
 
 public class Mapper {
-    public static Turno map(NuevoTurnoDto dto) { // TODO see if it is necessary
+    public static Turno map(NuevoTurnoDto dto) {
         Turno turno = new Turno();
         Paciente paciente = new Paciente();
         Odontologo odontologo = new Odontologo();

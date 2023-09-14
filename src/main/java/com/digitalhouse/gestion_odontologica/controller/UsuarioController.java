@@ -33,24 +33,16 @@ public class UsuarioController {
 
     @PostMapping()
     public ResponseEntity<UsuarioResultadoDto> guardar(@RequestBody NuevoUsuarioDto nuevoUsuarioDto) {
-        log.debug("Se recibio: " + nuevoUsuarioDto + " para guardar");
+        log.info("Se recibio: " + nuevoUsuarioDto + " para guardar");
         validarRolUsuario(nuevoUsuarioDto.getRol());
 
         Usuario usuario = usuarioService.guardar(mapper.convertValue(nuevoUsuarioDto, Usuario.class));
         return ResponseEntity.ok(mapper.convertValue(usuario, UsuarioResultadoDto.class));
     }
 
-    private void validarRolUsuario(String rol) {
-        try {
-            UsuarioRoleEnum.valueOf(rol);
-        } catch (IllegalArgumentException exception) {
-            throw new RolUsuarioNoValidoException();
-        }
-    }
-
     @PutMapping("/{id}")
     public ResponseEntity<UsuarioResultadoDto> actualizar(@RequestBody NuevoUsuarioDto usuarioDto, @PathVariable Long id) {
-        log.debug("Se recibio: " + usuarioDto + " para actualizar el usuario con el id " + id);
+        log.info("Se recibio: " + usuarioDto + " para actualizar el usuario con el id " + id);
         validarRolUsuario(usuarioDto.getRol());
 
         Usuario usuario = mapper.convertValue(usuarioDto, Usuario.class);
@@ -61,9 +53,17 @@ public class UsuarioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        log.debug("Se recibió la solicitud de eliminar el usuario con el id " + id);
+        log.info("Se recibió la solicitud de eliminar el usuario con el id " + id);
 
         usuarioService.eliminar(id);
         return ResponseEntity.noContent().build();
+    }
+
+    private void validarRolUsuario(String rol) {
+        try {
+            UsuarioRoleEnum.valueOf(rol);
+        } catch (IllegalArgumentException exception) {
+            throw new RolUsuarioNoValidoException();
+        }
     }
 }

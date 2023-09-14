@@ -1,4 +1,7 @@
 package com.digitalhouse.gestion_odontologica.service.exception;
 
-public class RolUsuarioNoValidoException extends RuntimeException{
+import lombok.Getter;
+
+@Getter
+public class RolUsuarioNoValidoException extends RuntimeException {
 }

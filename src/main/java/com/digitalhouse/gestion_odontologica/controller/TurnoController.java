@@ -19,7 +19,6 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/turno")
-
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 public class TurnoController {
     private final ITurnoService turnoService;
@@ -43,7 +42,7 @@ public class TurnoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TurnoResultadoDto> actualizar(@RequestBody NuevoTurnoDto turnoDto, @PathVariable Long id) {
-        log.debug("Se recibio: " + turnoDto + " para actualizar el turno con el id " + id);
+        log.info("Se recibio: " + turnoDto + " para actualizar el turno con el id " + id);
 
         Turno turno = Mapper.map(turnoDto);
         turno.setId(id);
@@ -53,7 +52,7 @@ public class TurnoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        log.debug("Se recibio la solicitud de eliminar el turno con el id " + id);
+        log.info("Se recibio la solicitud de eliminar el turno con el id " + id);
         turnoService.eliminar(id);
         return ResponseEntity.noContent().build();
     }

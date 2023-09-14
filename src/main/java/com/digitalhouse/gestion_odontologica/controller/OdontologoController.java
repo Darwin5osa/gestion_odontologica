@@ -18,14 +18,13 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/odontologo")
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
-
 public class OdontologoController {
     private final IOdontologoService odontologoService;
     private final ObjectMapper mapper;
 
     @GetMapping()
     public ResponseEntity<List<OdontologoResultadoDto>> listar() {
-        log.debug("Se recibio una solicitud de listar todo");
+        log.info("Se recibio una solicitud de listar todo");
         return ResponseEntity.ok(odontologoService.listarTodos()
                 .stream()
                 .map(odontologo -> mapper.convertValue(odontologo, OdontologoResultadoDto.class))
@@ -34,7 +33,7 @@ public class OdontologoController {
 
     @PostMapping()
     public ResponseEntity<OdontologoResultadoDto> guardar(@RequestBody NuevoOdontologoDto nuevoOdontologoDto) {
-        log.debug("Se recibio: " + nuevoOdontologoDto + " para guardar");
+        log.info("Se recibio: " + nuevoOdontologoDto + " para guardar");
 
         Odontologo odontologo = odontologoService.guardar(mapper.convertValue(nuevoOdontologoDto, Odontologo.class));
         return ResponseEntity.ok(mapper.convertValue(odontologo, OdontologoResultadoDto.class));
@@ -42,7 +41,7 @@ public class OdontologoController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OdontologoResultadoDto> actualizar(@RequestBody ActualizarOdontologoDto odontologoDto, @PathVariable Long id) {
-        log.debug("Se recibio: " + odontologoDto + " para actualizar el odontologo con el id " + id);
+        log.info("Se recibio: " + odontologoDto + " para actualizar el odontologo con el id " + id);
 
         Odontologo odontologo = mapper.convertValue(odontologoDto, Odontologo.class);
         odontologo.setId(id);
@@ -52,7 +51,7 @@ public class OdontologoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
-        log.debug("Se recibio la solicitud de eliminar el odontologo con el id " + id);
+        log.info("Se recibio la solicitud de eliminar el odontologo con el id " + id);
 
         odontologoService.eliminar(id);
         return ResponseEntity.noContent().build();
