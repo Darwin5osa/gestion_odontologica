@@ -52,11 +52,11 @@ public class PacienteController {
 
     @PutMapping("/{id}/domicilio")
     public ResponseEntity<PacienteResultadoDto> actualizarDomicilio(@RequestBody DomicilioDto DomicilioDto,
-                                                                    @PathVariable Long pacienteId) {
-        log.debug("Se recibio: " + DomicilioDto + " para actualizar el domicilio del paciente con el id " + pacienteId);
+                                                                    @PathVariable Long id) {
+        log.debug("Se recibio: " + DomicilioDto + " para actualizar el domicilio del paciente con el id " + id);
 
         Domicilio domicilio = mapper.convertValue(DomicilioDto, Domicilio.class);
-        Paciente paciente = pacienteService.actualizar(pacienteId, domicilio);
+        Paciente paciente = pacienteService.actualizar(id, domicilio);
         return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
     }
 

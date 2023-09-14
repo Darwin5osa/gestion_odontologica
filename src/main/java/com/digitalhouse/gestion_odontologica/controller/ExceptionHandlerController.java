@@ -3,6 +3,7 @@ package com.digitalhouse.gestion_odontologica.controller;
 import com.digitalhouse.gestion_odontologica.dto.ErrorDTO;
 import com.digitalhouse.gestion_odontologica.service.exception.ApellidoInvalidoException;
 import com.digitalhouse.gestion_odontologica.service.exception.NombreInvalidoException;
+import com.digitalhouse.gestion_odontologica.service.exception.RolUsuarioNoValidoException;
 import com.digitalhouse.gestion_odontologica.service.exception.StringInvalidoException;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -49,6 +50,17 @@ public class ExceptionHandlerController {
         ErrorDTO response = new ErrorDTO(HttpStatus.NOT_FOUND.getReasonPhrase(), mensaje);
 
         return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({RolUsuarioNoValidoException.class})
+    public ResponseEntity<ErrorDTO> RolUsuarioNoValidoHandler(RolUsuarioNoValidoException exception) {
+        String mensaje = "Rol no valido";
+
+        logException(exception, mensaje);
+
+        ErrorDTO response = new ErrorDTO(HttpStatus.BAD_REQUEST.getReasonPhrase(), mensaje);
+
+        return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
     private void logException(RuntimeException exception, String mensajeRespuesta) {
