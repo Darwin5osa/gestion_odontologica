@@ -17,6 +17,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor(onConstructor_ = @Autowired)
 @Service
+
 public class TurnoService implements ITurnoService {
 
     private final TurnoRepository turnoRepository;
