@@ -11,6 +11,6 @@ public class NuevoPacienteDto {
     private String nombre;
     private String apellido;
     private String dni;
-    private Date fechaIngreso; //Todo check type
+    private Date fechaIngreso;
     private DomicilioDto domicilio;
 }
