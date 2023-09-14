@@ -32,7 +32,7 @@ public class Paciente {
     @Column(name = "fecha_ingreso")
     private Date fechaIngreso;
 
-    @OneToOne(cascade = CascadeType.ALL/*, fetch = FetchType.LAZY*/)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "domicilio_id", referencedColumnName = "id")
     private Domicilio domicilio;
 

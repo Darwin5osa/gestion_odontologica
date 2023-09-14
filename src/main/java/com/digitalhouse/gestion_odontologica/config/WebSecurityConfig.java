@@ -20,8 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/turno").hasAnyRole("USER","ADMIN")
-                .antMatchers("/odontologo","/paciente", "/usuario").hasRole("ADMIN")
+                .antMatchers("/turno").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/odontologo", "/paciente", "/usuario").hasRole("ADMIN")
                 .and()
                 .formLogin().defaultSuccessUrl("/index.html", true)
                 .and()
@@ -37,9 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
     }
 
-
     @Bean
-    public DaoAuthenticationProvider authProvicer(UserDetailsService userDetailsService, PasswordEncoder encoder){
+    public DaoAuthenticationProvider authProvicer(UserDetailsService userDetailsService, PasswordEncoder encoder) {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(encoder);
@@ -47,7 +46,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder (){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 }

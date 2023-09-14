@@ -34,7 +34,7 @@ public class PacienteController {
 
     @PostMapping()
     public ResponseEntity<PacienteResultadoDto> guardar(@RequestBody NuevoPacienteDto nuevoPacienteDto) {
-        log.debug("Se recibio: " + nuevoPacienteDto + " para guardar");
+        log.info("Se recibio: " + nuevoPacienteDto + " para guardar");
 
         Paciente paciente = pacienteService.guardar(mapper.convertValue(nuevoPacienteDto, Paciente.class));
         return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
@@ -42,7 +42,7 @@ public class PacienteController {
 
     @PutMapping("/{id}")
     public ResponseEntity<PacienteResultadoDto> actualizar(@RequestBody ActualizarPaciente pacienteDto, @PathVariable Long id) {
-        log.debug("Se recibio: " + pacienteDto + " para actualizar el paciente con el id " + id);
+        log.info("Se recibio: " + pacienteDto + " para actualizar el paciente con el id " + id);
 
         Paciente paciente = mapper.convertValue(pacienteDto, Paciente.class);
         paciente.setId(id);
@@ -51,18 +51,18 @@ public class PacienteController {
     }
 
     @PutMapping("/{id}/domicilio")
-    public ResponseEntity<PacienteResultadoDto> actualizarDomicilio(@RequestBody DomicilioDto DomicilioDto,
+    public ResponseEntity<PacienteResultadoDto> actualizarDomicilio(@RequestBody DomicilioDto domicilioDto,
                                                                     @PathVariable Long id) {
-        log.debug("Se recibio: " + DomicilioDto + " para actualizar el domicilio del paciente con el id " + id);
+        log.info("Se recibio: " + domicilioDto + " para actualizar el domicilio del paciente con el id " + id);
 
-        Domicilio domicilio = mapper.convertValue(DomicilioDto, Domicilio.class);
+        Domicilio domicilio = mapper.convertValue(domicilioDto, Domicilio.class);
         Paciente paciente = pacienteService.actualizar(id, domicilio);
         return ResponseEntity.ok(mapper.convertValue(paciente, PacienteResultadoDto.class));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> eliminar(@PathVariable Long id) {
-        log.debug("Se recibió la solicitud de eliminar el paciente con el id " + id);
+        log.info("Se recibió la solicitud de eliminar el paciente con el id " + id);
 
         pacienteService.eliminar(id);
         return ResponseEntity.noContent().build();

@@ -3,7 +3,8 @@ package com.digitalhouse.gestion_odontologica.util;
 import com.digitalhouse.gestion_odontologica.service.exception.ApellidoInvalidoException;
 import com.digitalhouse.gestion_odontologica.service.exception.NombreInvalidoException;
 
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Validaciones {
     public static void validarNombre(String nombre) {

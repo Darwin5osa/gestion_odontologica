@@ -1,18 +1,12 @@
 package com.digitalhouse.gestion_odontologica.controller;
 
 import com.digitalhouse.gestion_odontologica.dto.ErrorDTO;
-import com.digitalhouse.gestion_odontologica.service.exception.ApellidoInvalidoException;
-import com.digitalhouse.gestion_odontologica.service.exception.NombreInvalidoException;
-import com.digitalhouse.gestion_odontologica.service.exception.RolUsuarioNoValidoException;
-import com.digitalhouse.gestion_odontologica.service.exception.StringInvalidoException;
+import com.digitalhouse.gestion_odontologica.service.exception.*;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import javax.persistence.EntityNotFoundException;
-import java.util.NoSuchElementException;
 
 @Log4j2
 @ControllerAdvice
@@ -30,19 +24,8 @@ public class ExceptionHandlerController {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler({EntityNotFoundException.class})
-    public ResponseEntity<ErrorDTO> EntityNotFoundHandler(EntityNotFoundException exception) {
-        String mensaje = "No se encontro el recurso";
-
-        logException(exception, mensaje);
-
-        ErrorDTO response = new ErrorDTO(HttpStatus.NOT_FOUND.getReasonPhrase(), mensaje);
-
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler({NoSuchElementException.class})
-    public ResponseEntity<ErrorDTO> NoSuchElementHandler(NoSuchElementException exception) {
+    @ExceptionHandler({RecursoNoEncontradoException.class})
+    public ResponseEntity<ErrorDTO> RecursoNoEncontradoHandler(RecursoNoEncontradoException exception) {
         String mensaje = "No se encontro el recurso";
 
         logException(exception, mensaje);

@@ -15,6 +15,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Domicilio {
+
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private Long id;

@@ -5,6 +5,7 @@ import lombok.Getter;
 import org.springframework.lang.NonNull;
 
 import java.util.Date;
+
 @Getter
 @AllArgsConstructor
 public class NuevoTurnoDto {
