@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Clinica Odontologica - Eliminar Odontólogo</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/delete_odontologo.js"></script>
+</head>
+<body>
+<div class="container">
+    <h1>Eliminar Odontólogo</h1>
+
+    <!-- Formulario para ingresar el ID del odontólogo a eliminar -->
+    <form id="eliminarOdontologoForm">
+        <div class="form-group">
+            <label for="odontologoId">ID del Odontólogo a Eliminar:</label>
+            <input type="text" class="form-control" id="odontologoId" name="odontologoId" required>
+        </div>
+        <button type="button" class="btn btn-danger" onclick="eliminarOdontologo()">Eliminar Odontólogo</button>
+    </form>
+
+    <!-- Mensaje de confirmación o error después de la eliminación -->
+    <div id="mensajeEliminacion" class="mt-3"></div>
+
+    <!-- Volver a la lista de odontólogos -->
+    <a href="/odontologoList.html" class="btn btn-primary mt-3">Volver a la Lista de Odontólogos</a>
+    <div></div>
+    <div><button type="button" class="btn btn-warning" id="btn-cerrar-sesion" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+
+</div>
+
+</body>
+</html>
