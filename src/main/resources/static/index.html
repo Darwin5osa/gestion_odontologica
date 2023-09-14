@@ -15,7 +15,6 @@
     <script>
         // Función para verificar si la cookie "JSESSIONID" existe
         function checkJSessionCookie() {
-            console.log(document.cookie)
             var cookies = document.cookie.split(';');
             for (var i = 0; i < cookies.length; i++) {
                 var cookie = cookies[i].trim();
