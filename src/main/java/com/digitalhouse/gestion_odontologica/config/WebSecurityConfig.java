@@ -1,14 +1,12 @@
 package com.digitalhouse.gestion_odontologica.config;
 
 
-import com.digitalhouse.gestion_odontologica.service.impl.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,7 +31,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     En caso de el uso de postman usar
                     .httpBasic();
                     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-                 */
+                */
 
         http.cors().disable();
         http.csrf().disable();
